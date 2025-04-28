@@ -1,290 +1,325 @@
-/**
- * Portfolio Project JavaScript
- * Handles card flip animations, filtering, scroll animations, and counters
- */
-
+// Enhanced Projects Page JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize project filtering
-  initProjectFiltering();
-
-  initProjectCards();
-
-  // Initialize animations on scroll
-  initScrollAnimations();
-
-  // Initialize counter animations for GitHub stats
-  initCounters();
-});
-
-/**
- * Initialize project category filtering
- */
-function initProjectFiltering() {
-  const filterBtns = document.querySelectorAll('.category-btn');
+  // Get all project cards
   const projectCards = document.querySelectorAll('.project-card');
+  const filterButtons = document.querySelectorAll('.filter-btn');
 
-  // If there are no filter buttons, return
-  if (filterBtns.length === 0) return;
+  // Initialize the project cards
+  initializeCards();
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Remove active class from all buttons
-      filterBtns.forEach(b => b.classList.remove('active'));
-      // Add active class to clicked button
-      btn.classList.add('active');
+  // Add filter functionality
+  setupFilters(filterButtons, projectCards);
 
-      const filter = btn.getAttribute('data-filter');
+  // Handle window resize for responsive layouts
+  window.addEventListener('resize', function() {
+    normalizeCardHeights();
+    checkMobileView();
+  });
 
-      // Filter projects
-      projectCards.forEach(card => {
-        // Calculate animation delay based on index
-        const index = Array.from(projectCards).indexOf(card);
-        const delay = index * 0.1;
+  // Check if we're in mobile view on initial load
+  checkMobileView();
 
-        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-          // Show cards that match the filter
+  /**
+   * Initialize all cards with necessary elements and event listeners
+   */
+  function initializeCards() {
+    projectCards.forEach(card => {
+      // Add gradient overlay to images
+      const imageContainer = card.querySelector('.project-image');
+      if (imageContainer && !imageContainer.querySelector('.image-overlay')) {
+        const overlay = document.createElement('div');
+        overlay.className = 'image-overlay';
+        imageContainer.appendChild(overlay);
+      }
+
+      // Setup card flipping functionality
+      setupCardFlipping(card);
+    });
+
+    // Normalize card heights for consistent rows
+    setTimeout(normalizeCardHeights, 100);
+
+    // Add animation classes for cards to fade in
+    projectCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('animate-in');
+        card.style.animationDelay = (index * 0.1) + 's';
+      }, 100);
+    });
+  }
+
+  /**
+   * Sets up the card flipping functionality
+   * @param {HTMLElement} card - The card element to set up
+   */
+  function setupCardFlipping(card) {
+    // Find the front and back buttons
+    const detailsBtn = card.querySelector('.project-link.details');
+    const backBtn = card.querySelector('.back-link.back-to-front');
+    const cardInner = card.querySelector('.project-card-inner');
+
+    // Add click event for the details button
+    if (detailsBtn) {
+      detailsBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        card.classList.add('is-flipped');
+      });
+    }
+
+    // Add click event for the back button
+    if (backBtn) {
+      backBtn.addEventListener('click', function() {
+        card.classList.remove('is-flipped');
+      });
+    }
+
+    // Add touch swipe functionality for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    if (cardInner) {
+      cardInner.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }, false);
+
+      cardInner.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, false);
+    }
+
+    // Handle swipe gestures
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) { // Swipe left
+        card.classList.add('is-flipped');
+      }
+      if (touchEndX > touchStartX + 50) { // Swipe right
+        card.classList.remove('is-flipped');
+      }
+    }
+
+    // Add mobile indicator for flippable cards on smaller screens
+    if (window.innerWidth <= 768 && !card.querySelector('.mobile-flip-indicator')) {
+      const mobileIndicator = document.createElement('div');
+      mobileIndicator.className = 'mobile-flip-indicator';
+      mobileIndicator.innerHTML = '<i class="fas fa-info-circle"></i> Tap for details';
+      card.querySelector('.project-card-front').appendChild(mobileIndicator);
+
+      // Make the entire front card clickable on mobile
+      card.querySelector('.project-card-front').addEventListener('click', function(e) {
+        // Don't flip if clicking on a link
+        if (!e.target.closest('a')) {
+          card.classList.add('is-flipped');
+        }
+      });
+    }
+  }
+
+  /**
+   * Sets up filtering functionality
+   * @param {NodeList} buttons - Filter buttons
+   * @param {NodeList} cards - Project cards
+   */
+  function setupFilters(buttons, cards) {
+    if (!buttons.length) return;
+
+    buttons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        // Add active class to clicked button
+        this.classList.add('active');
+
+        // Get filter value
+        const filter = this.getAttribute('data-filter');
+
+        // Filter cards with animation
+        filterCards(cards, filter);
+      });
+    });
+  }
+
+  /**
+   * Filters cards based on category
+   * @param {NodeList} cards - All project cards
+   * @param {string} filter - Category to filter by
+   */
+  function filterCards(cards, filter) {
+    cards.forEach(card => {
+      // First hide all cards with animation
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.8)';
+
+      setTimeout(() => {
+        // Then filter based on category
+        if (filter === 'all') {
           card.style.display = 'block';
-          // Apply staggered animation
           setTimeout(() => {
             card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 50 + (delay * 100));
+            card.style.transform = 'scale(1)';
+          }, 50);
         } else {
-          // Hide with fade out effect
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(20px)';
-          setTimeout(() => {
+          const category = card.getAttribute('data-category');
+          if (category === filter) {
+            card.style.display = 'block';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            }, 50);
+          } else {
             card.style.display = 'none';
-          }, 300);
+          }
         }
-      });
+      }, 300);
     });
-  });
 
-  // Trigger "all" filter click on load if present
-  const allFilterBtn = document.querySelector('.category-btn[data-filter="all"]');
-  if (allFilterBtn) {
-    allFilterBtn.click();
+    // Re-normalize heights after filtering
+    setTimeout(normalizeCardHeights, 600);
   }
-}
 
-/**
- * Initialize project cards with premium interactions
- */
-function initProjectCards() {
-  const projectCards = document.querySelectorAll('.project-card');
+  /**
+   * Normalizes card heights for consistent rows
+   */
+  function normalizeCardHeights() {
+    // Only normalize visible cards
+    const visibleCards = Array.from(projectCards).filter(
+      card => window.getComputedStyle(card).display !== 'none'
+    );
 
-  projectCards.forEach(card => {
-    // Add tabindex to make cards focusable
-    card.setAttribute('tabindex', '0');
+    // Reset heights to get natural height
+    visibleCards.forEach(card => {
+      card.style.height = '';
+    });
 
-    // Get card elements
-    const cardInner = card.querySelector('.project-card-inner');
-    const cardFront = card.querySelector('.project-card-front');
-    const cardBack = card.querySelector('.project-card-back');
+    // Skip height normalization on mobile
+    if (window.innerWidth <= 768) {
+      visibleCards.forEach(card => {
+        // Set consistent padding on mobile
+        const content = card.querySelector('.project-content');
+        const backSide = card.querySelector('.project-card-back');
 
-    if (!cardInner || !cardFront || !cardBack) return;
+        if (content) content.style.padding = '1.2rem';
+        if (backSide) backSide.style.padding = '1.2rem';
 
-    // Set accessibility attributes
-    cardFront.setAttribute('aria-hidden', 'false');
-    cardBack.setAttribute('aria-hidden', 'true');
-
-    // Add hover effect for tech tags
-    card.addEventListener('mouseenter', () => {
-      const techTags = card.querySelectorAll('.project-tech span');
-      techTags.forEach((tag, index) => {
-        tag.style.transitionDelay = `${index * 0.05}s`;
+        // Let cards have natural height on mobile
+        card.style.height = '';
       });
-    });
-
-    card.addEventListener('mouseleave', () => {
-      const techTags = card.querySelectorAll('.project-tech span');
-      techTags.forEach(tag => {
-        tag.style.transitionDelay = '0s';
-      });
-    });
-
-    // "View Details" button click handler
-    const detailsButtons = cardFront.querySelectorAll('.project-link.details');
-    detailsButtons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleCardFlip(card);
-      });
-    });
-
-    // "Back to front" button on the back of the card
-    const backToFrontButtons = cardBack.querySelectorAll('.back-to-front');
-    backToFrontButtons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleCardFlip(card);
-      });
-    });
-
-    // Card click handler (but not when clicking links)
-    card.addEventListener('click', function(e) {
-      const target = e.target;
-      if (target.tagName === 'A' ||
-          target.parentElement.tagName === 'A' ||
-          target.closest('a')) {
-        return;
-      }
-
-      toggleCardFlip(card);
-    });
-
-    // Keyboard navigation
-    card.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleCardFlip(card);
-      }
-    });
-
-    // Add touch events for better mobile experience
-    card.addEventListener('touchstart', function(e) {
-      // Store the touch position
-      card.touchStartX = e.touches[0].clientX;
-      card.touchStartY = e.touches[0].clientY;
-    });
-
-    card.addEventListener('touchend', function(e) {
-      // Don't flip if it's a scroll attempt
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-      const diffX = Math.abs(touchEndX - card.touchStartX);
-      const diffY = Math.abs(touchEndY - card.touchStartY);
-
-      // If it's not a significant movement (not a scroll attempt)
-      if (diffX < 5 && diffY < 5) {
-        // Don't flip if touching a link
-        if (e.target.tagName !== 'A' && e.target.parentElement.tagName !== 'A' && !e.target.closest('a')) {
-          toggleCardFlip(card);
-        }
-      }
-    });
-  });
-
-  // Add a CSS class to indicate the user is using mouse/touch vs keyboard navigation
-  document.addEventListener('mousedown', function() {
-    document.body.classList.add('using-mouse');
-  });
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Tab') {
-      document.body.classList.remove('using-mouse');
+      return;
     }
-  });
-}
 
-/**
- * Toggle card flip state with premium animation
- */
-function toggleCardFlip(card) {
-  const cardInner = card.querySelector('.project-card-inner');
-  const cardFront = card.querySelector('.project-card-front');
-  const cardBack = card.querySelector('.project-card-back');
+    // Group cards by row based on their position
+    const cardRows = groupCardsByRow(visibleCards);
 
-  if (!cardInner || !cardFront || !cardBack) return;
+    // For each row, find the tallest card and set all cards to that height
+    cardRows.forEach(row => {
+      let maxHeight = 0;
 
-  // Toggle the flip class
-  card.classList.toggle('is-flipped');
+      // Find tallest card in this row
+      row.forEach(card => {
+        const cardHeight = card.scrollHeight;
+        maxHeight = Math.max(maxHeight, cardHeight);
+      });
 
-  // Update accessibility attributes
-  if (card.classList.contains('is-flipped')) {
-    cardFront.setAttribute('aria-hidden', 'true');
-    cardBack.setAttribute('aria-hidden', 'false');
-  } else {
-    cardFront.setAttribute('aria-hidden', 'false');
-    cardBack.setAttribute('aria-hidden', 'true');
+      // Set all cards in this row to the max height
+      if (maxHeight > 0) {
+        row.forEach(card => {
+          card.style.height = `${maxHeight}px`;
+        });
+      }
+    });
   }
-}
 
-/**
- * Initialize animations for elements that appear when scrolled into view
- */
-function initScrollAnimations() {
-  const animatedElements = document.querySelectorAll('.project-card, .github-metric, .github-calendar');
+  /**
+   * Groups cards into rows based on their Y position
+   * @param {Array} cards - Array of card elements
+   * @returns {Array} - Array of card rows
+   */
+  function groupCardsByRow(cards) {
+    const rows = [];
+    const threshold = 10; // px threshold to consider cards on the same row
 
-  // Create an intersection observer
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      // If element is in viewport
-      if (entry.isIntersecting) {
-        // Add animation classes based on element type
-        if (entry.target.classList.contains('project-card')) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        } else {
-          const index = Array.from(document.querySelectorAll(
-            entry.target.classList.contains('github-metric') ? '.github-metric' : '.github-calendar'
-          )).indexOf(entry.target);
+    // Sort cards by their vertical position
+    cards.sort((a, b) => {
+      return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+    });
 
-          entry.target.style.animationDelay = `${index * 0.1}s`;
-          entry.target.classList.add('animate-in');
+    if (cards.length === 0) return rows;
+
+    let currentRow = [cards[0]];
+    let currentTop = cards[0].getBoundingClientRect().top;
+
+    // Group cards with similar Y positions
+    for (let i = 1; i < cards.length; i++) {
+      const cardTop = cards[i].getBoundingClientRect().top;
+
+      if (Math.abs(cardTop - currentTop) <= threshold) {
+        // Same row
+        currentRow.push(cards[i]);
+      } else {
+        // New row
+        rows.push(currentRow);
+        currentRow = [cards[i]];
+        currentTop = cardTop;
+      }
+    }
+
+    // Add the last row
+    if (currentRow.length > 0) {
+      rows.push(currentRow);
+    }
+
+    return rows;
+  }
+
+  /**
+   * Checks if we're in mobile view and adjusts UI accordingly
+   */
+  function checkMobileView() {
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      // Apply mobile-specific adjustments
+      projectCards.forEach(card => {
+        // Add tap indicator if it doesn't exist
+        const frontSide = card.querySelector('.project-card-front');
+        if (frontSide && !frontSide.querySelector('.mobile-flip-indicator')) {
+          const indicator = document.createElement('div');
+          indicator.className = 'mobile-flip-indicator';
+          indicator.innerHTML = '<i class="fas fa-info-circle"></i> Tap for details';
+          frontSide.appendChild(indicator);
         }
-        // Stop observing after animation is triggered
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.2, // Trigger when 20% of the element is visible
-    rootMargin: '0px 0px -50px 0px' // Slightly before element comes into view
-  });
 
-  // Start observing all animated elements
-  animatedElements.forEach(el => {
-    // Set initial state
-    if (el.classList.contains('project-card')) {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(40px)';
-      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        // Adjust description line clamp for smaller screens
+        const description = card.querySelector('.project-description');
+        if (description) {
+          description.style.webkitLineClamp = '2';
+        }
+
+        // Remove fixed height on mobile
+        card.style.height = '';
+      });
+    } else {
+      // Remove mobile-specific elements on larger screens
+      document.querySelectorAll('.mobile-flip-indicator').forEach(el => {
+        el.remove();
+      });
+
+      // Reset to desktop view
+      projectCards.forEach(card => {
+        const description = card.querySelector('.project-description');
+        if (description) {
+          // Reset line clamp based on card type
+          if (card.classList.contains('featured')) {
+            description.style.webkitLineClamp = '3';
+          } else {
+            description.style.webkitLineClamp = '2';
+          }
+        }
+      });
+
+      // Reapply normalized heights
+      normalizeCardHeights();
     }
-    observer.observe(el);
-  });
-}
-
-/**
- * Initialize counter animations for GitHub stats
- */
-function initCounters() {
-  const countElements = document.querySelectorAll('.metric-info h3');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const countEl = entry.target.querySelector('h3') || entry.target;
-        animateCount(countEl);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  countElements.forEach(el => {
-    observer.observe(el.parentElement || el);
-  });
-}
-
-/**
- * Animate counting for GitHub stats
- */
-function animateCount(el) {
-  const target = el.innerText;
-  const suffix = target.includes('+') ? '+' : '';
-  const targetNum = parseInt(target.replace(/\D/g, ''));
-  const duration = 2000; // ms
-  const step = Math.ceil(targetNum / (duration / 50)); // Update every 50ms
-  let current = 0;
-
-  const timer = setInterval(() => {
-    current += step;
-    if (current >= targetNum) {
-      clearInterval(timer);
-      current = targetNum;
-    }
-    el.innerText = current + suffix;
-  }, 50);
-}
+  }
+});
