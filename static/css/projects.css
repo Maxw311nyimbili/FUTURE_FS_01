@@ -1009,7 +1009,8 @@
   }
 }
 
-/* Diagonal Overlay for project cards */
+/* Overlay Effect for Project Cards */
+
 .project-image::before {
   content: '';
   position: absolute;
@@ -1018,66 +1019,110 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    135deg,
-    transparent 0%,
-    transparent 60%,
-    rgba(0, 0, 0, 0.6) 100%
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.4) 75%,
+    rgba(0, 0, 0, 0.65) 100%
   );
-  opacity: 1;
+  opacity: 0.8;
   z-index: 1;
-  transition: opacity 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+/* Premium diagonal accent overlay */
+.project-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    transparent 57%,
+    rgba(var(--primary-rgb, 79, 70, 229), 0.18) 63%,
+    rgba(var(--primary-rgb, 79, 70, 229), 0.25) 100%
+  );
+  z-index: 2;
+  opacity: 0;
+  transform: translateZ(0);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Enhanced image scale effect */
+.project-image img {
+  transform: scale(1.01);
+  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform;
+}
+
+/* Hover states for premium effect */
 .project-card:hover .project-image::before {
   opacity: 0.9;
 }
 
-/* Colored diagonal overlay variation */
+.project-card:hover .project-image::after {
+  opacity: 1;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.08);
+}
+
+/* Refined overlay with subtle color for hover state */
 .image-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    transparent 60%,
-    rgba(99, 102, 241, 0.3) 100%
+  background: radial-gradient(
+    circle at bottom right,
+    rgba(var(--primary-rgb, 79, 70, 229), 0.18) 0%,
+    rgba(var(--secondary-rgb, 236, 72, 153), 0.12) 30%,
+    transparent 70%
   );
-  z-index: 2;
+  z-index: 3;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  mix-blend-mode: soft-light;
 }
 
 .project-card:hover .image-overlay {
   opacity: 1;
 }
 
-/* Category-specific colored overlays */
-.project-card[data-category="web"] .image-overlay {
+/* Category-specific premium accents */
+.project-card[data-category="web"] .project-image::after {
   background: linear-gradient(
     135deg,
-    transparent 0%,
-    transparent 60%,
-    rgba(79, 70, 229, 0.3) 100%
+    transparent 57%,
+    rgba(79, 70, 229, 0.18) 63%,
+    rgba(79, 70, 229, 0.25) 100%
   );
 }
 
-.project-card[data-category="data"] .image-overlay {
+.project-card[data-category="data"] .project-image::after {
   background: linear-gradient(
     135deg,
-    transparent 0%,
-    transparent 60%,
-    rgba(8, 145, 178, 0.3) 100%
+    transparent 57%,
+    rgba(8, 145, 178, 0.18) 63%,
+    rgba(8, 145, 178, 0.25) 100%
   );
 }
 
-.project-card[data-category="desktop"] .image-overlay {
+.project-card[data-category="desktop"] .project-image::after {
   background: linear-gradient(
     135deg,
-    transparent 0%,
-    transparent 60%,
-    rgba(139, 92, 246, 0.3) 100%
+    transparent 57%,
+    rgba(139, 92, 246, 0.18) 63%,
+    rgba(139, 92, 246, 0.25) 100%
   );
 }
+
+/* Add fallback for browsers without CSS variables */
+:root {
+  --primary-rgb: 79, 70, 229;
+  --secondary-rgb: 236, 72, 153;
+}
+
