@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+
+{% block title %}Projects | Nyimbili's Portfolio{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/projects.css') }}">
+<script src="{{ url_for('static', filename='scripts/projects.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="projects-hero">
+  <div class="projects-hero-content">
+    <h1>Creative Portfolio</h1>
+    <p>A showcase of my technical skills and problem-solving abilities through various projects</p>
+    <div class="hero-decoration"></div>
+  </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="projects-section">
+  <div class="container">
+    <!-- Category Filters -->
+    <div class="filters">
+      <button class="filter-btn category-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn category-btn" data-filter="web">Web Development</button>
+      <button class="filter-btn category-btn" data-filter="desktop">Desktop Apps</button>
+      <button class="filter-btn category-btn" data-filter="data">Data Analysis</button>
+    </div>
+
+    <div class="projects-container">
+      <!-- Nkani-News Aggregator - Featured Project -->
+      <div class="project-card featured" data-category="web">
+        <div class="project-card-inner">
+          <!-- Front Side -->
+          <div class="project-card-front">
+            <div class="project-image">
+              <img src="{{ url_for('static', filename='images/nkani.png') }}" alt="Nkani-News Aggregator">
+              <span class="project-category">Web Development</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Nkani-News Aggregator</h3>
+              <p class="project-description">A Flask web application that scrapes Google News and provides sentiment analysis on articles.</p>
+              <div class="project-tech">
+                <span>Flask</span>
+                <span>Beautiful Soup</span>
+                <span>VADER</span>
+                <span>Python</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/Maxw311nyimbili/nkani_aggregator" class="project-link github" target="_blank">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://www.youtube.com/watch?v=53Kua8HQNzE" class="project-link demo" target="_blank">
+                  <i class="fab fa-youtube"></i> Demo
+                </a>
+                <a href="#" class="project-link details">
+                  <i class="fas fa-info-circle"></i> Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Back Side -->
+          <div class="project-card-back">
+            <h3 class="back-title">Nkani-News Aggregator</h3>
+            <div class="back-description">
+              <p>A Flask web application that provides users with a centralized platform for accessing news from various sources. The application scrapes Google News and implements sentiment analysis to help users gauge the emotional tone of news articles.</p>
+            </div>
+            <div class="back-links">
+              <a href="https://github.com/Maxw311nyimbili/nkani_aggregator" class="back-link github" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://www.youtube.com/watch?v=53Kua8HQNzE" class="back-link demo" target="_blank">
+                <i class="fab fa-youtube"></i> Watch Demo
+              </a>
+              <button class="back-link back-to-front">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Management System - Small Project -->
+      <div class="project-card small" data-category="desktop">
+        <div class="project-card-inner">
+          <!-- Front Side -->
+          <div class="project-card-front">
+            <div class="project-image">
+              <img src="{{ url_for('static', filename='images/student-management.png') }}" alt="Student Management System">
+              <span class="project-category">Desktop</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Student Management System</h3>
+              <p class="project-description">A comprehensive system for managing student, faculty, and admin data.</p>
+              <div class="project-tech">
+                <span>C++/CLI</span>
+                <span>MySQL</span>
+                <span>XAMPP</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link github" style="opacity: 0.6; cursor: not-allowed;">
+                  <i class="fab fa-github"></i> Private
+                </a>
+                <a href="#" class="project-link details">
+                  <i class="fas fa-info-circle"></i> Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Back Side -->
+          <div class="project-card-back">
+            <h3 class="back-title">University Student Management System</h3>
+            <div class="back-description">
+              <p>A comprehensive desktop application built with C++/CLI that streamlines administrative tasks for educational institutions, providing separate modules for students, faculty, and administrators.</p>
+            </div>
+            <div class="back-links">
+              <a href="https://www.youtube.com/watch?v=bYjuQxDN-oo" class="back-link demo" target="_blank">
+                <i class="fab fa-youtube"></i> Watch Demo
+              </a>
+              <button class="back-link back-to-front">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Events Manager - Small Project -->
+      <div class="project-card small" data-category="desktop">
+        <div class="project-card-inner">
+          <!-- Front Side -->
+          <div class="project-card-front">
+            <div class="project-image">
+              <img src="{{ url_for('static', filename='images/events_manager.png') }}" alt="Events Manager">
+              <span class="project-category">Desktop</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Events Manager</h3>
+              <p class="project-description">A Java application for scheduling and managing events with a clean UI.</p>
+              <div class="project-tech">
+                <span>Java</span>
+                <span>JavaFX</span>
+                <span>HashMaps</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/Maxw311nyimbili/eventsManager" class="project-link github" target="_blank">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="#" class="project-link details">
+                  <i class="fas fa-info-circle"></i> Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Back Side -->
+          <div class="project-card-back">
+            <h3 class="back-title">Events Manager</h3>
+            <div class="back-description">
+              <p>A Java desktop application designed to help users organize and track their schedule efficiently. Using JavaFX for the graphical interface, the application implements a HashMap data structure with dates as keys and event descriptions as values.</p>
+            </div>
+            <div class="back-links">
+              <a href="https://github.com/Maxw311nyimbili/eventsManager" class="back-link github" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://www.youtube.com/watch?v=X5PeW4KRCQE" class="back-link demo" target="_blank">
+                <i class="fab fa-youtube"></i> Watch Demo
+              </a>
+              <button class="back-link back-to-front">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ChronoScholar - Medium Project -->
+      <div class="project-card medium" data-category="desktop">
+        <div class="project-card-inner">
+          <!-- Front Side -->
+          <div class="project-card-front">
+            <div class="project-image">
+              <img src="{{ url_for('static', filename='images/chronoscholar.png') }}" alt="ChronoScholar">
+              <span class="project-category">Desktop</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">ChronoScholar</h3>
+              <p class="project-description">A productivity tool combining to-do list management with GPA calculation for students.</p>
+              <div class="project-tech">
+                <span>Java</span>
+                <span>JavaFX</span>
+                <span>SQL</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/Maxw311nyimbili/chronoScholar" class="project-link github" target="_blank">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="#" class="project-link details">
+                  <i class="fas fa-info-circle"></i> Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Back Side -->
+          <div class="project-card-back">
+            <h3 class="back-title">ChronoScholar</h3>
+            <div class="back-description">
+              <p>A comprehensive productivity tool designed specifically for students, combining to-do list management with GPA calculation. Developed with Java and JavaFX, this application helps students organize tasks and monitor academic performance.</p>
+            </div>
+            <div class="back-links">
+              <a href="https://github.com/Maxw311nyimbili/chronoScholar" class="back-link github" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://www.youtube.com/watch?v=pe4Qz30JqQk" class="back-link demo" target="_blank">
+                <i class="fab fa-youtube"></i> Watch Demo
+              </a>
+              <button class="back-link back-to-front">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Data Analysis - Medium Project -->
+      <div class="project-card medium" data-category="data">
+        <div class="project-card-inner">
+          <!-- Front Side -->
+          <div class="project-card-front">
+            <div class="project-image">
+              <img src="{{ url_for('static', filename='images/projects/data-analysis.jpg') }}" alt="Financial Data Analysis">
+              <span class="project-category">Data Analysis</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Financial Data Analysis</h3>
+              <p class="project-description">Python-based analysis of financial data sets using advanced data visualization.</p>
+              <div class="project-tech">
+                <span>Python</span>
+                <span>Pandas</span>
+                <span>Matplotlib</span>
+                <span>NumPy</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link github" style="opacity: 0.6; cursor: not-allowed;">
+                  <i class="fab fa-github"></i> Private
+                </a>
+                <a href="#" class="project-link details">
+                  <i class="fas fa-info-circle"></i> Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Back Side -->
+          <div class="project-card-back">
+            <h3 class="back-title">Financial Data Analysis</h3>
+            <div class="back-description">
+              <p>This project applies advanced data analysis techniques to financial datasets, drawing on experience gained during my PwC audit internship. Utilizing Python's powerful data manipulation and visualization libraries, the analysis identifies meaningful trends and provides actionable insights.</p>
+            </div>
+            <div class="back-links">
+              <button class="back-link back-to-front">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio Website - Medium Project -->
+      <div class="project-card medium" data-category="web">
+        <div class="project-card-inner">
+          <!-- Front Side -->
+          <div class="project-card-front">
+            <div class="project-image">
+              <img src="{{ url_for('static', filename='images/portfolio.png') }}" alt="Portfolio Website">
+              <span class="project-category">Web Development</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Personal Portfolio Website</h3>
+              <p class="project-description">A responsive personal portfolio built with Flask, featuring dynamic content and modern design.</p>
+              <div class="project-tech">
+                <span>Flask</span>
+                <span>Jinja</span>
+                <span>Bootstrap</span>
+                <span>JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link demo" style="opacity: 0.9;">
+                  <i class="fas fa-link"></i> You're Here!
+                </a>
+                <a href="#" class="project-link details">
+                  <i class="fas fa-info-circle"></i> Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Back Side -->
+          <div class="project-card-back">
+            <h3 class="back-title">Portfolio Website</h3>
+            <div class="back-description">
+              <p>This portfolio website showcases my projects and skills as a developer. Built with Flask and Jinja templates, the site features a responsive design with modern animations and interactive elements to create an engaging user experience.</p>
+            </div>
+            <div class="back-links">
+              <button class="back-link back-to-front">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- More Projects Section -->
+<section class="more-projects">
+  <div class="container">
+    <div class="more-projects-content">
+      <h2>Want to See More?</h2>
+      <p>Check out my GitHub for additional projects and code samples</p>
+      <a href="https://github.com/maxw311nyimbili" target="_blank">
+        <i class="fab fa-github"></i> Visit My GitHub
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

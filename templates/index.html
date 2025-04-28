@@ -1,0 +1,894 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Nyimbili's Portfolio{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<script src="{{ url_for('static', filename='scripts/main.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section - Improved for better balance and reduced height -->
+<!-- Enhanced Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-up">
+                <div class="hero-content">
+                    <div class="code-intro">
+                        <div class="code-tabs">
+                            <button class="code-tab active" data-lang="python">Python</button>
+                            <button class="code-tab" data-lang="javascript">JS</button>
+                            <button class="code-tab" data-lang="html">HTML</button>
+                        </div>
+                        <div class="code-panel">
+                            <!-- Python Introduction -->
+                            <div class="code-block active" id="python-code">
+                                <pre><code class="language-python"><span class="code-comment"># Hello, World! I'm Maxwell Nyimbili</span>
+<span class="code-keyword">class</span> <span class="code-class">CreativeDeveloper</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):
+        self.name = <span class="code-string">"Maxwell Nyimbili"</span>
+        self.role = <span class="code-string">"Full Stack Developer"</span>
+        self.specialties = [
+            <span class="code-string">"UI/UX Design"</span>,
+            <span class="code-string">"Web Development"</span>,
+            <span class="code-string">"Full Stack"</span>
+        ]
+    <span class="code-keyword">def</span> <span class="code-function">create</span>(self, <span class="code-param">project</span>):
+        <span class="code-keyword">return</span> <span class="code-string">f"Creating {project}..."</span>
+
+me = CreativeDeveloper()
+<span class="code-keyword">print</span>(me.create(<span class="code-string"><span class="typewriter" data-words="'digital experiences', 'elegant interfaces', 'powerful apps'"></span></span>))</code></pre>
+                            </div>
+
+                            <!-- JavaScript Introduction -->
+                            <div class="code-block" id="javascript-code">
+                                <pre><code class="language-javascript"><span class="code-comment">// Hello, World! I'm Maxwell Nyimbili</span>
+<span class="code-keyword">class</span> <span class="code-class">CreativeDeveloper</span> {
+  <span class="code-function">constructor</span>() {
+    <span class="code-keyword">this</span>.name = <span class="code-string">"Maxwell Nyimbili"</span>;
+    <span class="code-keyword">this</span>.role = <span class="code-string">"Full Stack Developer"</span>;
+    <span class="code-keyword">this</span>.specialties = [<span class="code-string">"UI/UX"</span>, <span class="code-string">"Web Development"</span>, <span class="code-string">"Full Stack"</span>];
+  }
+
+  <span class="code-function">create</span>(<span class="code-param">project</span>) {
+    <span class="code-keyword">return</span> <span class="code-string">`Creating ${project}...`</span>;
+  }
+}
+
+<span class="code-keyword">const</span> me = <span class="code-keyword">new</span> <span class="code-class">CreativeDeveloper</span>();
+console.log(me.create(<span class="code-string"><span class="typewriter" data-words="'digital experiences', 'elegant interfaces', 'powerful apps'"></span></span>));</code></pre>
+                            </div>
+
+                            <!-- HTML Introduction -->
+                            <div class="code-block" id="html-code">
+                                <pre><code class="language-html"><span class="code-comment">&lt;!-- Hello, World! I'm Maxwell Nyimbili --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"developer"</span>&gt;
+  &lt;<span class="code-tag">h1</span>&gt;Maxwell Nyimbili&lt;/<span class="code-tag">h1</span>&gt;
+  &lt;<span class="code-tag">h2</span>&gt;Full Stack Developer&lt;/<span class="code-tag">h2</span>&gt;
+
+  &lt;<span class="code-tag">ul</span> <span class="code-attr">class</span>=<span class="code-string">"skills"</span>&gt;
+    &lt;<span class="code-tag">li</span>&gt;UI/UX&lt;/<span class="code-tag">li</span>&gt;
+    &lt;<span class="code-tag">li</span>&gt;Web Dev&lt;/<span class="code-tag">li</span>&gt;
+    &lt;<span class="code-tag">li</span>&gt;Full Stack&lt;/<span class="code-tag">li</span>&gt;
+  &lt;/<span class="code-tag">ul</span>&gt;
+
+  &lt;<span class="code-tag">div</span>&gt;
+    Creating <span class="typewriter" data-words="digital experiences, elegant interfaces, powerful apps"></span>
+  &lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <p class="hero-text">A multidisciplinary developer combining design aesthetics with technical expertise to build impactful digital products that solve real problems.</p>
+
+                    <div class="hero-btns">
+                        <a href="{{ url_for('projects') }}" class="btn btn-primary me-3">Explore Projects</a>
+                        <a href="{{ url_for('form') }}" class="btn btn-outline-primary">Get in Touch</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                 <h1 class="hero-title">Creative Developer & UI/UX Designer</h1>
+                <br>
+                <div class="hero-visual">
+                    <div class="profile-container">
+                        <img src="{{ url_for('static', filename='images/banner-img.png') }}" alt="Maxwell Nyimbili" class="profile-img">
+                        <div class="design-element ui-element">
+                            <div class="element-icon"><i class="fas fa-pencil-ruler"></i></div>
+                            <div class="element-label">UI/UX</div>
+                        </div>
+                        <div class="design-element dev-element">
+                            <div class="element-icon"><i class="fas fa-code"></i></div>
+                            <div class="element-label">Development</div>
+                        </div>
+                        <div class="design-element creative-element">
+                            <div class="element-icon"><i class="fas fa-lightbulb"></i></div>
+                            <div class="element-label">Creativity</div>
+                        </div>
+                        <div class="design-element stack-element">
+                            <div class="element-icon"><i class="fas fa-layer-group"></i></div>
+                            <div class="element-label">Full Stack</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-decoration">
+        <div class="decoration-line"></div>
+        <div class="decoration-dot"></div>
+    </div>
+</section>
+
+<!-- About Section - More compact -->
+<section class="about section compact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-4">
+                <h2 class="section-title" data-aos="fade-up">About Me</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">A blend of creativity and technical skills</p>
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-up">
+                <div class="about-content">
+                    <div class="about-tabs">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-tab="developer">Developer</button>
+                            <button class="tab-btn" data-tab="designer">Designer</button>
+                            <button class="tab-btn" data-tab="person">Person</button>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="developer">
+                                <p>As a <strong>Full Stack Developer</strong>, I specialize in creating seamless web applications with clean code and efficient architecture. My experience spans Python's Flask for backend development, along with PHP and JavaScript for dynamic frontends.</p>
+                                <div class="skill-progress">
+                                    <div class="skill-area">
+                                        <span>Frontend</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-area">
+                                        <span>Backend</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-area">
+                                        <span>Problem Solving</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="designer">
+                                <p>I approach <strong>UI/UX Design</strong> with a user-centric mindset, creating intuitive interfaces that balance aesthetics and functionality. I believe design should not only look good but also solve problems and enhance user experience.</p>
+                                <div class="skill-progress">
+                                    <div class="skill-area">
+                                        <span>User Research</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-area">
+                                        <span>Visual Design</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-area">
+                                        <span>Prototyping</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="person">
+                                <p>Beyond code and design, I'm a <strong>curious learner</strong> who enjoys exploring new technologies and creative approaches. I value innovation, collaboration, and the power of technology to make a positive impact.</p>
+                                <div class="skill-progress">
+                                    <div class="skill-area">
+                                        <span>Leadership</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-area">
+                                        <span>Communication</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-area">
+                                        <span>Adaptability</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="about-card">
+                    <div class="card-header">
+                        <i class="fas fa-graduation-cap me-2"></i> Education
+                    </div>
+                    <div class="card-body">
+                        <h4>BSc, Computer Science</h4>
+                        <h5>Ashesi University, Ghana</h5>
+                        <p class="education-date">Expected Graduation: June 2026</p>
+                        <div class="coursework">
+                            <h6>Relevant Coursework:</h6>
+                            <div class="course-tags">
+                                <span>Data Structures & Algorithms</span>
+                                <span>Database Systems</span>
+                                <span>Intro to AI</span>
+                                <span>Calculus</span>
+                                <span>Linear Algebra</span>
+                                <span>Statistics</span>
+                                <span>Discrete Structures</span>
+                                <span>Leadership</span>
+                                <span>Economics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section - More compact timeline -->
+<section class="experience section bg-light compact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-4">
+                <h2 class="section-title" data-aos="fade-up">Experience</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Professional journey and highlights</p>
+            </div>
+        </div>
+
+        <div class="timeline compact-timeline">
+            <!-- Google Developer Group Experience -->
+            <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content card">
+                    <div class="timeline-header">
+                        <div class="timeline-icon">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div class="timeline-meta">
+                            <h3>Web Development Track Lead</h3>
+                            <h4>Google Developer Group</h4>
+                            <span class="timeline-date">Present</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="timeline-details">
+                            <li>Led web development sessions, training over 30 students in HTML5, CSS3, JavaScript, Python frameworks, and PHP.</li>
+                            <li>Developed a structured curriculum and teaching materials, enhancing student engagement by 35%.</li>
+                        </ul>
+                        <div class="skill-tags">
+                            <span>Leadership</span>
+                            <span>Teaching</span>
+                            <span>Curriculum Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BioLith Experience -->
+            <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content card">
+                    <div class="timeline-header">
+                        <div class="timeline-icon">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                        <div class="timeline-meta">
+                            <h3>Front-End Engineer</h3>
+                            <h4>BioLith, AshesiGhana iGEM</h4>
+                            <span class="timeline-date">Jun - Sep 2023</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="timeline-details">
+                            <li>Designed and developed the team's website for project documentation, enhancing accessibility by 90%.</li>
+                            <li>Implemented a user-friendly front-end interface using HTML5, CSS3, and JavaScript.</li>
+                        </ul>
+                        <a href="https://2023.igem.wiki/ashesighana/" class="project-link" target="_blank">View Website <i class="fas fa-external-link-alt"></i></a>
+                        <div class="skill-tags">
+                            <span>Web Design</span>
+                            <span>Frontend</span>
+                            <span>Documentation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PwC Experience -->
+            <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content card">
+                    <div class="timeline-header">
+                        <div class="timeline-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="timeline-meta">
+                            <h3>Auditor Intern</h3>
+                            <h4>PricewaterhouseCoopers (PwC) Zambia</h4>
+                            <span class="timeline-date">Jan - May 2022</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="timeline-details">
+                            <li>Conducted internal control over financial reporting (ICOFR) audits, ensuring 100% compliance with international standards.</li>
+                            <li>Analyzed operating expenses (OPEX), identifying cost-saving opportunities that reduced expenses by 10%.</li>
+                        </ul>
+                        <div class="skill-tags">
+                            <span>Auditing</span>
+                            <span>Financial Analysis</span>
+                            <span>Reporting</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section - Improved tabbed interface -->
+<section class="skills section compact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-4">
+                <h2 class="section-title" data-aos="fade-up">Skills</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">My technical toolkit and competencies</p>
+            </div>
+        </div>
+
+        <!-- Enhanced Skills Grid -->
+        <div class="row justify-content-center" data-aos="fade-up">
+            <div class="col-lg-10">
+                <div class="skills-tabs">
+                    <div class="skills-nav">
+                        <button class="skill-nav-btn active" data-target="languages">
+                            <i class="fas fa-code"></i>
+                            <span>Languages</span>
+                        </button>
+                        <button class="skill-nav-btn" data-target="frameworks">
+                            <i class="fas fa-server"></i>
+                            <span>Frameworks</span>
+                        </button>
+                        <button class="skill-nav-btn" data-target="design">
+                            <i class="fas fa-paint-brush"></i>
+                            <span>Design</span>
+                        </button>
+                        <button class="skill-nav-btn" data-target="tools">
+                            <i class="fas fa-tools"></i>
+                            <span>Tools</span>
+                        </button>
+                    </div>
+
+                    <div class="skills-content">
+                        <div class="skill-pane active" id="languages">
+                            <div class="skills-grid">
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Python</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>JavaScript</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>PHP</span>
+                                        <span>70%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Java</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>SQL</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>HTML/CSS</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-pane" id="frameworks">
+                            <div class="skills-grid">
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Flask</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Django</span>
+                                        <span>65%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Bootstrap</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>jQuery</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>React</span>
+                                        <span>60%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>JavaFX</span>
+                                        <span>70%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-pane" id="design">
+                            <div class="skills-grid">
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>UI Design</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>UX Research</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Wireframing</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Prototyping</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Responsive Design</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Design Systems</span>
+                                        <span>70%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-pane" id="tools">
+                            <div class="skills-grid">
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Git</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>VS Code</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>Figma</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>PostgreSQL</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>MySQL</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-item">
+                                    <div class="skill-info">
+                                        <span>API Integration</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-level" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                <div class="soft-skills">
+                    <h3>Professional Skills</h3>
+                    <div class="soft-skills-cloud">
+                        <div class="soft-skill">Problem Solving</div>
+                        <div class="soft-skill">Team Collaboration</div>
+                        <div class="soft-skill">Communication</div>
+                        <div class="soft-skill">Critical Thinking</div>
+                        <div class="soft-skill">Adaptability</div>
+                        <div class="soft-skill">Research</div>
+                        <div class="soft-skill">Leadership</div>
+                        <div class="soft-skill">Time Management</div>
+                        <div class="soft-skill">Creativity</div>
+                        <div class="soft-skill">Project Planning</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Section - Grid layout -->
+<section class="projects section bg-light compact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-4">
+                <h2 class="section-title" data-aos="fade-up">Featured Projects</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Creative and functional solutions</p>
+            </div>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Nkani-News Aggregator -->
+            <div class="project-card" data-aos="fade-up">
+                <div class="project-image">
+                    <img src="{{ url_for('static', filename='images/nkani.png') }}" alt="Nkani-News Aggregator" class="img-fluid">
+                    <div class="project-overlay">
+                        <div class="project-focus">
+                            <span>Development</span>
+                            <span>Data Analysis</span>
+                        </div>
+                        <div class="project-quick-actions">
+                            <a href="https://github.com/Maxw311nyimbili/nkani_aggregator" target="_blank" class="action-btn">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=53Kua8HQNzE" target="_blank" class="action-btn">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <h3>Nkani-News Aggregator</h3>
+                    <p>A Flask web application that scrapes Google News and provides sentiment analysis on articles, helping users find relevant content with emotional context.</p>
+                    <div class="project-tech">
+                        <span>Flask</span>
+                        <span>Web Scraping</span>
+                        <span>NLP</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="{{ url_for('projects') }}#nkani" class="learn-more-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Manager -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-image">
+                    <img src="{{ url_for('static', filename='images/events_manager.png') }}" alt="Events Manager" class="img-fluid">
+                    <div class="project-overlay">
+                        <div class="project-focus">
+                            <span>UI/UX</span>
+                            <span>Application Design</span>
+                        </div>
+                        <div class="project-quick-actions">
+                            <a href="https://github.com/Maxw311nyimbili/eventsManager" target="_blank" class="action-btn">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=X5PeW4KRCQE" target="_blank" class="action-btn">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <h3>Events Manager</h3>
+                    <p>A Java application for scheduling and managing events with a clean user interface and full CRUD functionality. Designed for easy event tracking and organization.</p>
+                    <div class="project-tech">
+                        <span>Java</span>
+                        <span>JavaFX</span>
+                        <span>UI Design</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="{{ url_for('projects') }}#events-manager" class="learn-more-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add a third featured project for better balance -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-image">
+                    <img src="{{ url_for('static', filename='images/portfolio.png') }}" alt="Events Manager" class="img-fluid">
+                    <div class="project-placeholder">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-focus">
+                            <span>Portfolio</span>
+                            <span>Web Design</span>
+                        </div>
+                        <div class="project-quick-actions">
+                            <a href="#" class="action-btn">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="action-btn">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <h3>Personal Portfolio</h3>
+                    <p>A responsive portfolio website showcasing my skills and projects. Built with Flask, HTML5, CSS3, and JavaScript with a focus on modern design principles.</p>
+                    <div class="project-tech">
+                        <span>Flask</span>
+                        <span>Bootstrap</span>
+                        <span>UI/UX</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="{{ url_for('projects') }}#portfolio" class="learn-more-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center mt-4">
+            <div class="col-12" data-aos="fade-up">
+                <a href="{{ url_for('projects') }}" class="btn btn-primary">View All Projects</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Creative Process Section - More compact -->
+<section class="process section compact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-4">
+                <h2 class="section-title" data-aos="fade-up">My Process</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">How I approach design and development</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="process-timeline">
+                    <!-- Discovery -->
+                    <div class="process-step" data-aos="fade-up">
+                        <div class="step-number">01</div>
+                        <div class="step-content">
+                            <div class="step-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>Discovery</h3>
+                            <p>I begin by understanding the problem space, conducting research, and defining clear objectives for the project. This phase focuses on gathering requirements and identifying user needs.</p>
+                            <div class="step-tools">
+                                <span>Research</span>
+                                <span>User Interviews</span>
+                                <span>Competitive Analysis</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Strategy -->
+                    <div class="process-step" data-aos="fade-up">
+                        <div class="step-number">02</div>
+                        <div class="step-content">
+                            <div class="step-icon">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <h3>Strategy</h3>
+                            <p>I develop the architectural framework and map out the user journey. This includes deciding on technology stack, creating wireframes, and planning the overall structure of the solution.</p>
+                            <div class="step-tools">
+                                <span>Wireframing</span>
+                                <span>Architecture Planning</span>
+                                <span>User Flows</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Design -->
+                    <div class="process-step" data-aos="fade-up">
+                        <div class="step-number">03</div>
+                        <div class="step-content">
+                            <div class="step-icon">
+                                <i class="fas fa-pencil-ruler"></i>
+                            </div>
+                            <h3>Design</h3>
+                            <p>I create visual designs and interactive prototypes that bring the concept to life. This focuses on UI elements, color schemes, typography, and interactive components that create a cohesive user experience.</p>
+                            <div class="step-tools">
+                                <span>UI Design</span>
+                                <span>Prototyping</span>
+                                <span>Visual Systems</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Development -->
+                    <div class="process-step" data-aos="fade-up">
+                        <div class="step-number">04</div>
+                        <div class="step-content">
+                            <div class="step-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Development</h3>
+                            <p>I build the solution using clean, efficient code, implementing both frontend and backend components. This involves translating designs into functional applications with a focus on performance and reliability.</p>
+                            <div class="step-tools">
+                                <span>Frontend Development</span>
+                                <span>Backend Integration</span>
+                                <span>Testing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Launch & Iterate -->
+                    <div class="process-step" data-aos="fade-up">
+                        <div class="step-number">05</div>
+                        <div class="step-content">
+                            <div class="step-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3>Launch & Iterate</h3>
+                            <p>I deploy the solution and gather user feedback to make continuous improvements. This ongoing process ensures the product evolves to better serve user needs and business goals over time.</p>
+                            <div class="step-tools">
+                                <span>Deployment</span>
+                                <span>Analytics</span>
+                                <span>Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact CTA - More compact -->
+<section class="contact-cta compact-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <h2>Let's Work Together</h2>
+                <p>Have a project in mind or interested in collaborating? I'd love to hear from you and explore how we can create something amazing together.</p>
+                <div class="cta-buttons mt-4">
+                    <a href="{{ url_for('form') }}" class="btn btn-primary me-3">Contact Me</a>
+                    <a href="/download" class="btn btn-outline-primary">Download Resume</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

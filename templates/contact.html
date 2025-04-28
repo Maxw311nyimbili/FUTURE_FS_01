@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | Nyimbili's Portfolio{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Enhanced Contact Hero Section -->
+<section class="contact-hero">
+  <div class="contact-hero-content">
+    <h1>Get in Touch</h1>
+    <p>I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.</p>
+  </div>
+  <div class="hero-decoration">
+    <div class="decoration-line"></div>
+    <div class="decoration-dot"></div>
+  </div>
+</section>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <div class="flash-message {{ category }}">
+          <div class="container">
+            <i class="fas {% if category == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+            <span>{{ message }}</span>
+            <button class="close-btn" onclick="this.parentElement.parentElement.style.display='none';">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- Enhanced Contact Section -->
+<section class="contact-section">
+  <div class="contact-container">
+    <!-- Decorative elements -->
+    <div class="contact-decoration decoration-1"></div>
+    <div class="contact-decoration decoration-2"></div>
+
+    <!-- Contact Info -->
+    <div class="contact-info fade-in-delay-1">
+      <div class="contact-info-inner">
+        <div>
+          <div class="contact-heading">
+            <h2>Contact Information</h2>
+          </div>
+          <p class="contact-desc">Feel free to reach out through any of these channels. I'll get back to you as soon as possible.</p>
+
+          <div class="contact-method">
+            <div class="contact-method-title">
+              <i class="fas fa-envelope"></i> Email
+            </div>
+            <div class="contact-method-content">
+              <a href="mailto:nyimbilimaxwell9@gmail.com">nyimbilimaxwell9@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-method-title">
+              <i class="fas fa-map-marker-alt"></i> Location
+            </div>
+            <div class="contact-method-content">
+              Lusaka, Zambia
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-method-title">
+              <i class="fas fa-clock"></i> Availability
+            </div>
+            <div class="contact-method-content">
+              Monday - Friday, 9AM - 6PM CAT
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-method-title">
+              <i class="fas fa-phone-alt"></i> Response Time
+            </div>
+            <div class="contact-method-content">
+              Usually within 24 hours
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <a href="#" class="resume-btn">
+            <span>Download Resume</span>
+            <i class="fas fa-download"></i>
+          </a>
+
+          <div class="social-links">
+            <a href="https://github.com/maxw311nyimbili" target="_blank" class="social-link" aria-label="GitHub Profile">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/maxwellnyimbili" target="_blank" class="social-link" aria-label="LinkedIn Profile">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://twitter.com/maxwellnyimbili" target="_blank" class="social-link" aria-label="Twitter Profile">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="mailto:maxwell@example.com" class="social-link" aria-label="Email Me">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form fade-in-delay-2">
+      <div class="contact-form-inner">
+        <div class="form-header">
+          <h2>Send Me a Message</h2>
+        </div>
+        <p class="form-subtext">Have a question or want to work together? Drop me a message using the form below.</p>
+
+        <form id="contactForm" action="{{ url_for('contacts') }}" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address" required>
+          </div>
+
+          <div class="form-group">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject" placeholder="What is this about?">
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea class="form-control" id="message" name="text" placeholder="What would you like to discuss?" required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" name="submit_1">
+            <span>Send Message</span>
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Enhanced Map Section -->
+<section class="map-section fade-in-delay-3">
+  <div class="map-container">
+    <div class="map-header">
+      <h2 class="map-title">Where to Find Me</h2>
+      <p class="map-subtitle">Based in the heart of Lusaka, Zambia, I'm always ready to connect with clients and collaborators worldwide.</p>
+    </div>
+
+    <div class="map-card">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d122517.27749518766!2d28.206577235677232!3d-15.416786590286017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19408bf89fee857d%3A0xbbdea97a0919b3d9!2sLusaka%2C%20Zambia!5e0!3m2!1sen!2sus!4v1650442381300!5m2!1sen!2sus"
+        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of Lusaka, Zambia"></iframe>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add animation classes on page load
+    const elements = document.querySelectorAll('.fade-in, .fade-in-delay-1, .fade-in-delay-2, .fade-in-delay-3');
+    elements.forEach(el => {
+      // Ensure classes are applied
+      el.style.opacity = el.classList.contains('fade-in') ? 1 : 0;
+    });
+
+    // Form submission animation
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = contactForm.querySelector('.submit-btn');
+
+    contactForm.addEventListener('submit', function(e) {
+      // Add loading state to button
+      submitBtn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
+      submitBtn.disabled = true;
+      submitBtn.classList.add('sending');
+      // Form will continue submitting
+    });
+
+    // Auto-dismiss flash messages after 5 seconds
+    setTimeout(function() {
+      const flashMessages = document.querySelectorAll('.flash-message');
+      flashMessages.forEach(function(message) {
+        message.style.opacity = '0';
+        setTimeout(function() {
+          message.style.display = 'none';
+        }, 300); // wait for opacity transition
+      });
+    }, 5000);
+
+    // Enhanced parallax effect for decorative elements
+    window.addEventListener('mousemove', function(e) {
+      const decorations = document.querySelectorAll('.contact-decoration');
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      decorations.forEach(function(decoration, index) {
+        const speed = index === 0 ? 0.04 : 0.03;
+        const x = (centerX - mouseX) * speed;
+        const y = (centerY - mouseY) * speed;
+
+        decoration.style.transform = `translateX(${x}px) translateY(${y}px)`;
+      });
+
+      // Subtle card movement effect
+      const cards = document.querySelectorAll('.contact-info-inner, .contact-form-inner');
+      cards.forEach(function(card, index) {
+        const speed = 0.005;
+        const x = (mouseX - centerX) * speed;
+        const y = (mouseY - centerY) * speed;
+
+        card.style.transform = `perspective(1000px) rotateX(${y * -1}deg) rotateY(${x}deg)`;
+      });
+    });
+
+    // Reset transform when mouse leaves the window
+    window.addEventListener('mouseleave', function() {
+      const cards = document.querySelectorAll('.contact-info-inner, .contact-form-inner');
+      cards.forEach(function(card) {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+  });
+</script>
+{% endblock %}
