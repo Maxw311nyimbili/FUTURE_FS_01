@@ -737,8 +737,13 @@ textarea.form-control {
   }
 }
 
-/* Responsive adjustments - Enhanced for better mobile experience */
+/* Responsive adjustments with horizontal spacing fix */
 @media (max-width: 992px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 15px; /* Add padding to prevent edge-to-edge on tablets */
+  }
+
   .contact-container {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -760,6 +765,34 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
+  /* Fix horizontal spacing issues */
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Remove any negative margins that might cause overflow */
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    width: 100%;
+    padding: 0; /* Remove padding as it's handled by container */
+  }
+
+  /* Make card fill width properly while maintaining margins */
+  .project-card {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Other responsive styles */
   .contact-hero {
     padding: 6rem 0 4rem;
   }
@@ -783,16 +816,40 @@ textarea.form-control {
   .map-subtitle {
     font-size: 1.1rem;
   }
-  .contact-hero::after{
+
+  .contact-hero::after, .contact-hero::before {
     display: none;
   }
 
-  .map-section::before{
+  .map-section::before {
     display: none;
   }
 }
 
 @media (max-width: 576px) {
+  /* Further adjustments for very small screens */
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /* Optimize image display */
+  .project-image {
+    height: 200px; /* Slightly taller for better visibility */
+  }
+
+  /* Fix any overflow issues with project cards */
+  .project-body {
+    padding: 1.2rem;
+    overflow: hidden; /* Prevent text overflow */
+  }
+
+  .project-tech {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* Other small screen adjustments */
   .contact-hero {
     padding: 5rem 0 3rem;
   }

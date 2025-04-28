@@ -651,9 +651,10 @@
     width: 28px;
     height: 28px;
   }
-  .projects-hero::after{
+  .projects-hero::after,.projects-hero::before {
     display: none;
   }
+
 }
 
 @media (max-width: 576px) {
