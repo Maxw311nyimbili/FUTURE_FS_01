@@ -783,6 +783,13 @@ textarea.form-control {
   .map-subtitle {
     font-size: 1.1rem;
   }
+  .contact-hero::after{
+    display: none;
+  }
+
+  .map-section::before{
+    display: none;
+  }
 }
 
 @media (max-width: 576px) {

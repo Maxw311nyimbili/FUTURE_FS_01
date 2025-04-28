@@ -1029,7 +1029,12 @@ html[data-theme="dark"] .soft-skills {
   }
 }
 
+
+
+
+
 @media (max-width: 768px) {
+
     .hero-title {
         font-size: 2.2rem;
     }
@@ -1057,10 +1062,6 @@ html[data-theme="dark"] .soft-skills {
     }
 
 
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
-
    .hero *::before, .hero *::after {
     border: none !important;
     background: transparent !important;
@@ -1071,9 +1072,75 @@ html[data-theme="dark"] .soft-skills {
     grid-template-columns: repeat(2, 1fr);
 }
 
-
-
+.contact-cta::before{
+    display: none;
 }
+ .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-card {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Reduce image height */
+  .project-image {
+    height: 180px;
+  }
+
+  /* Optimize typography */
+  .project-body h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .project-body p {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+  }
+
+  /* Make tech tags smaller and more compact */
+  .project-tech {
+    gap: 6px;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-tech span {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  /* Reduce padding */
+  .project-body {
+    padding: 1.2rem;
+  }
+
+  /* Improve overlay elements */
+  .project-overlay {
+    padding: 1rem;
+  }
+
+  .project-focus span {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  .action-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Add better spacing between sections */
+  .compact-section {
+    padding: 3rem 0;
+  }
+}
+
+
 
 @media (max-width: 576px) {
     .hero {
@@ -1105,6 +1172,50 @@ html[data-theme="dark"] .soft-skills {
     .process-step {
         padding-left: 50px;
     }
+
+    /* Even smaller devices */
+  .project-image {
+    height: 160px;
+  }
+
+  .project-body {
+    padding: 1rem;
+  }
+
+  .project-body h3 {
+    font-size: 1.1rem;
+  }
+
+  .project-body p {
+    font-size: 0.85rem;
+  }
+
+  .project-tech span {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+
+  .learn-more-link {
+    font-size: 0.9rem;
+  }
+
+  /* Improve section titles */
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Make the "View All Projects" button more prominent */
+  .btn-primary {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+  }
 }
 
 
