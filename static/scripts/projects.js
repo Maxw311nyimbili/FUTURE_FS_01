@@ -1,4 +1,4 @@
-// Enhanced Projects Page JavaScript
+// Enhanced Projects Page JavaScript with Premium Features
 document.addEventListener('DOMContentLoaded', function() {
   // Get all project cards
   const projectCards = document.querySelectorAll('.project-card');
@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle window resize for responsive layouts
   window.addEventListener('resize', function() {
     normalizeCardHeights();
-    checkMobileView();
+    updateResponsiveLayout();
   });
 
-  // Check if we're in mobile view on initial load
-  checkMobileView();
+  // Check initial layout
+  updateResponsiveLayout();
 
   /**
    * Initialize all cards with necessary elements and event listeners
@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.className = 'image-overlay';
         imageContainer.appendChild(overlay);
       }
+
+      // Set up the links overlay if not present
+      setupLinksOverlay(card);
 
       // Setup card flipping functionality
       setupCardFlipping(card);
@@ -49,18 +52,63 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /**
+   * Sets up the premium links overlay
+   */
+  function setupLinksOverlay(card) {
+    const contentArea = card.querySelector('.project-content');
+    const existingLinks = card.querySelector('.project-links');
+
+    // Only proceed if we have content area and links
+    if (!contentArea || !existingLinks) return;
+
+    // Create overlay if it doesn't exist
+    if (!card.querySelector('.project-links-overlay')) {
+      // Create new overlay
+      const linksOverlay = document.createElement('div');
+      linksOverlay.className = 'project-links-overlay';
+
+      // Clone the links to put in overlay
+      const clonedLinks = existingLinks.cloneNode(true);
+
+      // Add event listeners to the cloned links
+      clonedLinks.querySelectorAll('a').forEach(link => {
+        // For the details link
+        if (link.classList.contains('details')) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            card.classList.add('is-flipped');
+          });
+        }
+
+        // For other links, make sure they open in a new tab
+        if (link.getAttribute('href') && link.getAttribute('href') !== '#') {
+          link.setAttribute('target', '_blank');
+          link.setAttribute('rel', 'noopener noreferrer');
+        }
+      });
+
+      linksOverlay.appendChild(clonedLinks);
+      card.appendChild(linksOverlay);
+
+      // Hide the original links if we're not on mobile
+      if (window.innerWidth > 768) {
+        existingLinks.style.display = 'none';
+      }
+    }
+  }
+
+  /**
    * Sets up the card flipping functionality
-   * @param {HTMLElement} card - The card element to set up
    */
   function setupCardFlipping(card) {
-    // Find the front and back buttons
+    // Find the front and back buttons/elements
     const detailsBtn = card.querySelector('.project-link.details');
     const backBtn = card.querySelector('.back-link.back-to-front');
     const cardInner = card.querySelector('.project-card-inner');
     const frontSide = card.querySelector('.project-card-front');
     const backSide = card.querySelector('.project-card-back');
 
-    // Add click event for the details button
+    // Add click event for the details button (original and in overlay)
     if (detailsBtn) {
       detailsBtn.addEventListener('click', function(e) {
         e.preventDefault();
@@ -112,14 +160,29 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // Add mobile indicator for flippable cards on smaller screens
+    // Add mobile indicators if we're on mobile
+    updateMobileIndicators(card, frontSide, backSide);
+  }
+
+  /**
+   * Updates mobile indicators based on screen size
+   */
+  function updateMobileIndicators(card, frontSide, backSide) {
     if (window.innerWidth <= 768) {
       // Front indicator (if it doesn't exist)
-      if (!frontSide.querySelector('.mobile-flip-indicator')) {
+      if (frontSide && !frontSide.querySelector('.mobile-flip-indicator')) {
         const mobileIndicator = document.createElement('div');
         mobileIndicator.className = 'mobile-flip-indicator';
         mobileIndicator.innerHTML = '<i class="fas fa-info-circle"></i> Tap for details';
         frontSide.appendChild(mobileIndicator);
+
+        // Make the entire front card clickable on mobile
+        frontSide.addEventListener('click', function(e) {
+          // Don't flip if clicking on a link
+          if (window.innerWidth <= 768 && !e.target.closest('a')) {
+            card.classList.add('is-flipped');
+          }
+        });
       }
 
       // Back indicator (if it doesn't exist)
@@ -129,21 +192,80 @@ document.addEventListener('DOMContentLoaded', function() {
         backIndicator.innerHTML = '<i class="fas fa-arrow-left"></i> Tap anywhere to go back';
         backSide.appendChild(backIndicator);
       }
+    } else {
+      // Remove mobile indicators on larger screens
+      const indicators = card.querySelectorAll('.mobile-flip-indicator, .mobile-back-indicator');
+      indicators.forEach(indicator => indicator.remove());
+    }
+  }
 
-      // Make the entire front card clickable on mobile
-      frontSide.addEventListener('click', function(e) {
-        // Don't flip if clicking on a link
-        if (window.innerWidth <= 768 && !e.target.closest('a')) {
-          card.classList.add('is-flipped');
+  /**
+   * Updates the layout based on screen size
+   */
+  function updateResponsiveLayout() {
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth <= 992 && window.innerWidth > 768;
+
+    projectCards.forEach(card => {
+      const frontSide = card.querySelector('.project-card-front');
+      const backSide = card.querySelector('.project-card-back');
+      const existingLinks = card.querySelector('.project-links');
+
+      // Update indicators
+      updateMobileIndicators(card, frontSide, backSide);
+
+      if (isMobile) {
+        // Mobile adjustments
+        const content = card.querySelector('.project-content');
+        const linksOverlay = card.querySelector('.project-links-overlay');
+
+        // Show original links on mobile
+        if (existingLinks) existingLinks.style.display = 'flex';
+
+        // Adjust description line clamp
+        const description = card.querySelector('.project-description');
+        if (description) {
+          description.style.webkitLineClamp = '2';
         }
-      });
+
+        // Set proper padding
+        if (content) content.style.padding = '1.2rem';
+        if (backSide) backSide.style.padding = '1.2rem';
+
+        // Dynamic height for mobile
+        card.style.height = 'auto';
+        card.style.minHeight = '420px';
+
+      } else if (isTablet) {
+        // Tablet adjustments
+        card.style.height = '450px';
+        if (existingLinks) existingLinks.style.display = 'none';
+
+      } else {
+        // Desktop adjustments
+        card.style.height = '450px';
+        if (existingLinks) existingLinks.style.display = 'none';
+
+        const description = card.querySelector('.project-description');
+        if (description) {
+          // Reset line clamp based on card type
+          if (card.classList.contains('featured')) {
+            description.style.webkitLineClamp = '3';
+          } else {
+            description.style.webkitLineClamp = '2';
+          }
+        }
+      }
+    });
+
+    // Apply normalized heights for desktop and tablet
+    if (!isMobile) {
+      normalizeCardHeights();
     }
   }
 
   /**
    * Sets up filtering functionality
-   * @param {NodeList} buttons - Filter buttons
-   * @param {NodeList} cards - Project cards
    */
   function setupFilters(buttons, cards) {
     if (!buttons.length) return;
@@ -167,14 +289,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /**
    * Filters cards based on category
-   * @param {NodeList} cards - All project cards
-   * @param {string} filter - Category to filter by
    */
   function filterCards(cards, filter) {
     cards.forEach(card => {
       // First hide all cards with animation
       card.style.opacity = '0';
-      card.style.transform = 'scale(0.8)';
+      card.style.transform = 'translateY(20px)';
 
       setTimeout(() => {
         // Then filter based on category
@@ -182,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
           card.style.display = 'block';
           setTimeout(() => {
             card.style.opacity = '1';
-            card.style.transform = 'scale(1)';
+            card.style.transform = 'translateY(0)';
           }, 50);
         } else {
           const category = card.getAttribute('data-category');
@@ -190,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.display = 'block';
             setTimeout(() => {
               card.style.opacity = '1';
-              card.style.transform = 'scale(1)';
+              card.style.transform = 'translateY(0)';
             }, 50);
           } else {
             card.style.display = 'none';
@@ -207,6 +327,9 @@ document.addEventListener('DOMContentLoaded', function() {
    * Normalizes card heights for consistent rows
    */
   function normalizeCardHeights() {
+    // Skip on mobile
+    if (window.innerWidth <= 768) return;
+
     // Only normalize visible cards
     const visibleCards = Array.from(projectCards).filter(
       card => window.getComputedStyle(card).display !== 'none'
@@ -216,22 +339,6 @@ document.addEventListener('DOMContentLoaded', function() {
     visibleCards.forEach(card => {
       card.style.height = '';
     });
-
-    // Skip height normalization on mobile
-    if (window.innerWidth <= 768) {
-      visibleCards.forEach(card => {
-        // Set consistent padding on mobile
-        const content = card.querySelector('.project-content');
-        const backSide = card.querySelector('.project-card-back');
-
-        if (content) content.style.padding = '1.2rem';
-        if (backSide) backSide.style.padding = '1.2rem';
-
-        // Let cards have natural height on mobile
-        card.style.height = '';
-      });
-      return;
-    }
 
     // Group cards by row based on their position
     const cardRows = groupCardsByRow(visibleCards);
@@ -257,8 +364,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /**
    * Groups cards into rows based on their Y position
-   * @param {Array} cards - Array of card elements
-   * @returns {Array} - Array of card rows
    */
   function groupCardsByRow(cards) {
     const rows = [];
@@ -295,66 +400,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     return rows;
-  }
-
-  /**
-   * Checks if we're in mobile view and adjusts UI accordingly
-   */
-  function checkMobileView() {
-    const isMobile = window.innerWidth <= 768;
-
-    if (isMobile) {
-      // Apply mobile-specific adjustments
-      projectCards.forEach(card => {
-        const frontSide = card.querySelector('.project-card-front');
-        const backSide = card.querySelector('.project-card-back');
-
-        // Add tap indicator if it doesn't exist
-        if (frontSide && !frontSide.querySelector('.mobile-flip-indicator')) {
-          const indicator = document.createElement('div');
-          indicator.className = 'mobile-flip-indicator';
-          indicator.innerHTML = '<i class="fas fa-info-circle"></i> Tap for details';
-          frontSide.appendChild(indicator);
-        }
-
-        // Add back indicator if it doesn't exist
-        if (backSide && !backSide.querySelector('.mobile-back-indicator')) {
-          const backIndicator = document.createElement('div');
-          backIndicator.className = 'mobile-back-indicator';
-          backIndicator.innerHTML = '<i class="fas fa-arrow-left"></i> Tap anywhere to go back';
-          backSide.appendChild(backIndicator);
-        }
-
-        // Adjust description line clamp for smaller screens
-        const description = card.querySelector('.project-description');
-        if (description) {
-          description.style.webkitLineClamp = '2';
-        }
-
-        // Remove fixed height on mobile
-        card.style.height = '';
-      });
-    } else {
-      // Remove mobile-specific elements on larger screens
-      document.querySelectorAll('.mobile-flip-indicator, .mobile-back-indicator').forEach(el => {
-        el.remove();
-      });
-
-      // Reset to desktop view
-      projectCards.forEach(card => {
-        const description = card.querySelector('.project-description');
-        if (description) {
-          // Reset line clamp based on card type
-          if (card.classList.contains('featured')) {
-            description.style.webkitLineClamp = '3';
-          } else {
-            description.style.webkitLineClamp = '2';
-          }
-        }
-      });
-
-      // Reapply normalized heights
-      normalizeCardHeights();
-    }
   }
 });
