@@ -1,4 +1,4 @@
-// Enhanced Projects Page JavaScript with Premium Features
+// Enhanced Projects Page JavaScript with Minimalist Features
 document.addEventListener('DOMContentLoaded', function() {
   // Get all project cards
   const projectCards = document.querySelectorAll('.project-card');
@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // Set up the links overlay if not present
       setupLinksOverlay(card);
 
+      // Add minimalist icon navigation
+      addProjectIcons(card);
+
       // Setup card flipping functionality
       setupCardFlipping(card);
     });
@@ -49,6 +52,67 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.animationDelay = (index * 0.1) + 's';
       }, 100);
     });
+  }
+
+  /**
+   * Adds minimalist icon navigation to project cards
+   */
+  function addProjectIcons(card) {
+    const frontSide = card.querySelector('.project-card-front');
+    const existingLinks = card.querySelector('.project-links');
+
+    // Only proceed if we have a front side and links
+    if (!frontSide || !existingLinks) return;
+
+    // Create icons container if it doesn't exist
+    if (!frontSide.querySelector('.project-icons')) {
+      const iconsContainer = document.createElement('div');
+      iconsContainer.className = 'project-icons';
+
+      // Get all links from the original links div
+      const links = existingLinks.querySelectorAll('a');
+
+      // Create icon for each link
+      links.forEach(link => {
+        const icon = document.createElement('a');
+        icon.className = `project-icon`;
+
+        // Set appropriate class based on original link
+        if (link.classList.contains('github')) {
+          icon.classList.add('github');
+        } else if (link.classList.contains('demo')) {
+          icon.classList.add('demo');
+        } else if (link.classList.contains('details')) {
+          icon.classList.add('details');
+        }
+
+        // Copy attributes
+        icon.href = link.getAttribute('href') || '#';
+        if (link.getAttribute('target')) {
+          icon.setAttribute('target', link.getAttribute('target'));
+        }
+
+        // Copy icon HTML
+        const iconElement = link.querySelector('i');
+        if (iconElement) {
+          icon.innerHTML = iconElement.outerHTML;
+        }
+
+        // Add event listener for details link
+        if (link.classList.contains('details')) {
+          icon.addEventListener('click', function(e) {
+            e.preventDefault();
+            card.classList.add('is-flipped');
+          });
+        }
+
+        // Add to container
+        iconsContainer.appendChild(icon);
+      });
+
+      // Add to front side
+      frontSide.appendChild(iconsContainer);
+    }
   }
 
   /**
@@ -165,11 +229,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /**
-   * Updates mobile indicators based on screen size
+   * Updates mobile indicators based on screen size with minimalist design
    */
   function updateMobileIndicators(card, frontSide, backSide) {
     if (window.innerWidth <= 768) {
-      // Front indicator (if it doesn't exist)
+      // Simplified front indicator (if it doesn't exist)
       if (frontSide && !frontSide.querySelector('.mobile-flip-indicator')) {
         const mobileIndicator = document.createElement('div');
         mobileIndicator.className = 'mobile-flip-indicator';
@@ -178,24 +242,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Make the entire front card clickable on mobile
         frontSide.addEventListener('click', function(e) {
-          // Don't flip if clicking on a link
-          if (window.innerWidth <= 768 && !e.target.closest('a')) {
+          // Don't flip if clicking on an icon or link
+          if (window.innerWidth <= 768 && !e.target.closest('a') && !e.target.closest('.project-icons')) {
             card.classList.add('is-flipped');
           }
         });
       }
 
-      // Back indicator (if it doesn't exist)
+      // Simplified back indicator
       if (backSide && !backSide.querySelector('.mobile-back-indicator')) {
         const backIndicator = document.createElement('div');
         backIndicator.className = 'mobile-back-indicator';
         backIndicator.innerHTML = '<i class="fas fa-arrow-left"></i> Tap anywhere to go back';
         backSide.appendChild(backIndicator);
       }
+
+      // Check if back links need to be converted to icons
+      const backLinks = backSide ? backSide.querySelectorAll('.back-link') : [];
+      backLinks.forEach(link => {
+        if (link.classList.contains('back-to-front') && link.tagName === 'BUTTON') {
+          const icon = link.querySelector('i');
+          const text = link.textContent.trim();
+          if (icon && text !== '' && !link.classList.contains('icon-only')) {
+            // Save the icon and replace content
+            const iconHTML = icon.outerHTML;
+            link.innerHTML = iconHTML;
+            link.classList.add('icon-only');
+          }
+        }
+      });
     } else {
       // Remove mobile indicators on larger screens
       const indicators = card.querySelectorAll('.mobile-flip-indicator, .mobile-back-indicator');
       indicators.forEach(indicator => indicator.remove());
+
+      // Restore back button text if needed
+      const backLinks = backSide ? backSide.querySelectorAll('.back-link.back-to-front.icon-only') : [];
+      backLinks.forEach(link => {
+        if (link.tagName === 'BUTTON') {
+          link.innerHTML = '<i class="fas fa-arrow-left"></i> Back';
+          link.classList.remove('icon-only');
+        }
+      });
     }
   }
 
@@ -210,8 +298,9 @@ document.addEventListener('DOMContentLoaded', function() {
       const frontSide = card.querySelector('.project-card-front');
       const backSide = card.querySelector('.project-card-back');
       const existingLinks = card.querySelector('.project-links');
+      const icons = card.querySelector('.project-icons');
 
-      // Update indicators
+      // Update indicators with minimalist design
       updateMobileIndicators(card, frontSide, backSide);
 
       if (isMobile) {
@@ -219,8 +308,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const content = card.querySelector('.project-content');
         const linksOverlay = card.querySelector('.project-links-overlay');
 
-        // Show original links on mobile
-        if (existingLinks) existingLinks.style.display = 'flex';
+        // Hide original links on mobile when using icons
+        if (existingLinks && icons) existingLinks.style.display = 'none';
+
+        // Show icons
+        if (icons) icons.style.opacity = '1';
 
         // Adjust description line clamp
         const description = card.querySelector('.project-description');
@@ -230,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Set proper padding
         if (content) content.style.padding = '1.2rem';
-        if (backSide) backSide.style.padding = '1.2rem';
+        if (backSide) backSide.style.padding = '1rem';
 
         // Dynamic height for mobile
         card.style.height = 'auto';
@@ -241,10 +333,16 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.height = '450px';
         if (existingLinks) existingLinks.style.display = 'none';
 
+        // Show icons on tablet
+        if (icons) icons.style.opacity = '1';
+
       } else {
         // Desktop adjustments
         card.style.height = '450px';
         if (existingLinks) existingLinks.style.display = 'none';
+
+        // Hide icons on desktop
+        if (icons) icons.style.opacity = '0';
 
         const description = card.querySelector('.project-description');
         if (description) {
