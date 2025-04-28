@@ -927,7 +927,12 @@ textarea.form-control {
 }
 
 /* Root level overflow control */
-
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  position: relative;
+  max-width: 100vw;
+}
 
 /* Strict container width control */
 .container, section, .row, .col, [class*="col-"] {
