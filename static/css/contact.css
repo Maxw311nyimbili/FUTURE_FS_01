@@ -1102,18 +1102,25 @@ html, body {
 }
 
 [data-theme="dark"] .form-label {
-  color: var(--gray-200);
+  color: var(--gray-200); /* Make sure labels are also visible */
 }
 
 /* Make sure placeholder text is visible but slightly dimmed */
 [data-theme="dark"] .form-control::placeholder {
-  color: var(--gray-400);
+  color: var(--gray-400); /* Lightened from var(--gray-500) */
 }
 
 /* Fix for form text in dark mode when focused */
 [data-theme="dark"] .form-control:focus {
+  color: var(--primary-dark);
+  background-color: var(--gray-800); /* Slightly lighter when focused */
+}
+
+/* Additional fixes for text fields in dark mode */
+[data-theme="dark"] input.form-control,
+[data-theme="dark"] textarea.form-control,
+[data-theme="dark"] select.form-control {
   color: white;
-  background-color: var(--gray-800);
 }
 
 /* Fix for textarea in dark mode - sometimes they need explicit setting */
