@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const detailsBtn = card.querySelector('.project-link.details');
     const backBtn = card.querySelector('.back-link.back-to-front');
     const cardInner = card.querySelector('.project-card-inner');
+    const frontSide = card.querySelector('.project-card-front');
+    const backSide = card.querySelector('.project-card-back');
 
     // Add click event for the details button
     if (detailsBtn) {
@@ -68,8 +70,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add click event for the back button
     if (backBtn) {
-      backBtn.addEventListener('click', function() {
+      backBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation(); // Prevent event bubbling
         card.classList.remove('is-flipped');
+      });
+    }
+
+    // Make entire back card clickable on mobile for returning
+    if (backSide) {
+      backSide.addEventListener('click', function(e) {
+        // Only if we're on mobile and not clicking a link
+        if (window.innerWidth <= 768 && !e.target.closest('a') && !e.target.closest('.back-link')) {
+          card.classList.remove('is-flipped');
+        }
       });
     }
 
@@ -99,16 +113,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add mobile indicator for flippable cards on smaller screens
-    if (window.innerWidth <= 768 && !card.querySelector('.mobile-flip-indicator')) {
-      const mobileIndicator = document.createElement('div');
-      mobileIndicator.className = 'mobile-flip-indicator';
-      mobileIndicator.innerHTML = '<i class="fas fa-info-circle"></i> Tap for details';
-      card.querySelector('.project-card-front').appendChild(mobileIndicator);
+    if (window.innerWidth <= 768) {
+      // Front indicator (if it doesn't exist)
+      if (!frontSide.querySelector('.mobile-flip-indicator')) {
+        const mobileIndicator = document.createElement('div');
+        mobileIndicator.className = 'mobile-flip-indicator';
+        mobileIndicator.innerHTML = '<i class="fas fa-info-circle"></i> Tap for details';
+        frontSide.appendChild(mobileIndicator);
+      }
+
+      // Back indicator (if it doesn't exist)
+      if (backSide && !backSide.querySelector('.mobile-back-indicator')) {
+        const backIndicator = document.createElement('div');
+        backIndicator.className = 'mobile-back-indicator';
+        backIndicator.innerHTML = '<i class="fas fa-arrow-left"></i> Tap anywhere to go back';
+        backSide.appendChild(backIndicator);
+      }
 
       // Make the entire front card clickable on mobile
-      card.querySelector('.project-card-front').addEventListener('click', function(e) {
+      frontSide.addEventListener('click', function(e) {
         // Don't flip if clicking on a link
-        if (!e.target.closest('a')) {
+        if (window.innerWidth <= 768 && !e.target.closest('a')) {
           card.classList.add('is-flipped');
         }
       });
@@ -281,13 +306,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isMobile) {
       // Apply mobile-specific adjustments
       projectCards.forEach(card => {
-        // Add tap indicator if it doesn't exist
         const frontSide = card.querySelector('.project-card-front');
+        const backSide = card.querySelector('.project-card-back');
+
+        // Add tap indicator if it doesn't exist
         if (frontSide && !frontSide.querySelector('.mobile-flip-indicator')) {
           const indicator = document.createElement('div');
           indicator.className = 'mobile-flip-indicator';
           indicator.innerHTML = '<i class="fas fa-info-circle"></i> Tap for details';
           frontSide.appendChild(indicator);
+        }
+
+        // Add back indicator if it doesn't exist
+        if (backSide && !backSide.querySelector('.mobile-back-indicator')) {
+          const backIndicator = document.createElement('div');
+          backIndicator.className = 'mobile-back-indicator';
+          backIndicator.innerHTML = '<i class="fas fa-arrow-left"></i> Tap anywhere to go back';
+          backSide.appendChild(backIndicator);
         }
 
         // Adjust description line clamp for smaller screens
@@ -301,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     } else {
       // Remove mobile-specific elements on larger screens
-      document.querySelectorAll('.mobile-flip-indicator').forEach(el => {
+      document.querySelectorAll('.mobile-flip-indicator, .mobile-back-indicator').forEach(el => {
         el.remove();
       });
 

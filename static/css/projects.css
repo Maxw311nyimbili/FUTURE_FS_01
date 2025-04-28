@@ -162,6 +162,7 @@
 
 .project-card-front {
   background-color: var(--card-bg);
+  z-index: 1;
 }
 
 .project-card-back {
@@ -171,6 +172,15 @@
   flex-direction: column;
   padding: 1.5rem;
   border: 1px solid var(--border);
+  z-index: 2;
+}
+
+/* Hide front elements when card is flipped */
+.project-card.is-flipped .project-category,
+.project-card.is-flipped .mobile-flip-indicator,
+.project-card.is-flipped .image-overlay {
+  opacity: 0 !important;
+  visibility: hidden;
 }
 
 /* Fix for dark mode back side */
@@ -261,8 +271,8 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(99, 102, 241, 0.3) 0%,
-    rgba(20, 184, 166, 0.2) 100%
+    rgba(99, 102, 241, 0.4) 0%,
+    rgba(236, 72, 153, 0.3) 100%
   );
   z-index: 2;
   opacity: 0;
@@ -392,8 +402,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  padding: 0.4rem 0.7rem;
-  border-radius: 6px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
   font-size: 0.85rem;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -454,10 +464,13 @@
   color: var(--text);
   border: 1px solid var(--border);
   cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .back-link.back-to-front:hover {
-  background-color: var(--gray-200);
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
 }
 
 /* Category Filters */
@@ -586,8 +599,30 @@
   width: 100%;
 }
 
-/* Mobile enhancements */
+/* Mobile flip indicator - more visible and better styled */
 .mobile-flip-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg,
+    rgba(99, 102, 241, 0.8),
+    rgba(236, 72, 153, 0.8)
+  );
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  z-index: 10;
+  opacity: 0.9;
+  display: none;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Add a second mobile indicator for the back side */
+.mobile-back-indicator {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -598,7 +633,6 @@
   padding: 0.5rem;
   font-size: 0.8rem;
   z-index: 10;
-  opacity: 0.8;
   display: none;
 }
 
@@ -697,13 +731,15 @@
   }
 
   .project-link, .back-link {
-    padding: 0.4rem 0.6rem;
+    padding: 0.5rem 0.8rem;
     font-size: 0.8rem;
+    border-radius: 20px; /* More rounded on mobile */
   }
 
   .back-links {
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 1.5rem;
   }
 
   .flip-button {
@@ -721,6 +757,11 @@
     display: block;
   }
 
+  /* Display back indicator on flipped cards */
+  .project-card.is-flipped .mobile-back-indicator {
+    display: block;
+  }
+
   /* Adjust image and card heights for mobile */
   .project-image, .featured .project-image {
     height: 200px !important;
@@ -728,6 +769,17 @@
 
   .project-content, .project-card-back {
     padding: 1.2rem !important;
+  }
+
+  /* Stronger back button on mobile */
+  .back-link.back-to-front {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+    color: var(--text-dark);
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-weight: 600;
   }
 }
 
