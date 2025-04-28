@@ -336,7 +336,7 @@ def user_send_email(useremail, message, name=""):
                 </div>
 
                 <p style="text-align: center; margin-top: 30px;">
-                    <a href="https://yourportfolio.com" class="button">Visit Portfolio</a>
+                    <a href="https://nyimbiliportfolio.pythonanywhere.com/" class="button">Visit Portfolio</a>
                 </p>
             </div>
             <div class="email-footer">
