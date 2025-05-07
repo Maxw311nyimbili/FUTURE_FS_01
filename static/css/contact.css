@@ -862,13 +862,13 @@ textarea.form-control {
 
   /* Optimize image display */
   .project-image {
-    height: 200px; /* Slightly taller for better visibility */
+    height: 200px;
   }
 
   /* Fix any overflow issues with project cards */
   .project-body {
     padding: 1.2rem;
-    overflow: hidden; /* Prevent text overflow */
+    overflow: hidden;
   }
 
   .project-tech {
