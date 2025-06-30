@@ -70,7 +70,7 @@ p {
 }
 
 /* Background Elements */
-/* Background Elements - Mobile-First Improvement */
+
 .bg-gradient {
   position: fixed;
   top: 0;
@@ -104,7 +104,6 @@ p {
   opacity: 0.15;
 }
 
-/* Mobile First - Default is mobile-friendly */
 .shape-1 {
   top: 5%;
   left: 5%;
@@ -123,13 +122,11 @@ p {
   animation: float 14s ease-in-out infinite reverse;
 }
 
-/* Hide these shapes by default on mobile */
 .shape-3,
 .shape-4 {
   display: none;
 }
 
-/* Hero Section Background Elements */
 .hero {
     position: relative;
     overflow: hidden;
@@ -204,7 +201,6 @@ p {
     bottom: 12%;
   }
 
-  /* Show shape-3 on tablets and up */
   .shape-3 {
     display: block;
     top: 60%;
@@ -618,18 +614,18 @@ footer {
     /* Hero adjustments for tablets */
     .hero::before,
     .hero::after {
-        width: 70%;  /* Reduced width */
-        height: 180%;  /* Reduced height */
-        filter: blur(50px);  /* Add blur to soften the edges */
-        opacity: 0.7;  /* Slightly reduce opacity */
+        width: 70%;
+        height: 180%;
+        filter: blur(50px);
+        opacity: 0.7;
     }
 
     .hero::before {
-        left: -30%;  /* Move further left to prevent overlap */
+        left: -30%;
     }
 
     .hero::after {
-        right: -30%;  /* Move further right to prevent overlap */
+        right: -30%;
     }
 }
 
@@ -639,7 +635,7 @@ footer {
     }
 
     .navbar {
-        padding: 0.5rem 0; /* Further reduced for mobile */
+        padding: 0.5rem 0;
     }
 
     .logo-text {
@@ -647,7 +643,7 @@ footer {
     }
 
     .logo-text img {
-        width: 55px; /* Further reduced for mobile */
+        width: 55px;
     }
 
     /* Background shape adjustments for mobile */
@@ -688,26 +684,25 @@ footer {
     /* Hero adjustments for mobile */
     .hero::before,
     .hero::after {
-        width: 60%;  /* Further reduced width */
-        height: 150%;  /* Further reduced height */
-        filter: blur(70px);  /* Increased blur for mobile */
-        opacity: 0.5;  /* Further reduced opacity */
+        width: 60%
+        height: 150%;
+        filter: blur(70px);
+        opacity: 0.5;
     }
 
     .hero::before {
-        left: -40%;  /* Move even further left */
-        top: -30%;  /* Adjust vertical position */
+        left: -40%;
+        top: -30%;
     }
 
     .hero::after {
-        right: -40%;  /* Move even further right */
-        top: -30%;  /* Adjust vertical position */
+        right: -40%;
+        top: -30%;
     }
 }
 
-/* Alternative approach for very problematic mobile devices */
 @media (max-width: 480px) {
-  /* Option 1: Further minimize the blobs */
+
   .shape-1 {
     top: 15%;
     left: 10%;

@@ -1,4 +1,4 @@
-/* Projects Section - Enhanced Minimalist Design with Card Flip */
+/* Projects Section */
 
 /* Hero Section */
 .projects-hero {
@@ -98,7 +98,7 @@
   animation: shimmer 3s infinite;
 }
 
-/* Project Grid - Clean Layout */
+/* Project Grid */
 .projects-section {
   padding: 3rem 0 5rem;
   background-color: var(--bg);
@@ -113,7 +113,7 @@
   padding: 0 2rem;
 }
 
-/* Card Flip Design - Premium Version */
+/* Card Flip Design */
 .project-card {
   perspective: 1000px;
   position: relative;
@@ -186,14 +186,13 @@
   visibility: hidden;
 }
 
-/* Fix for dark mode back side */
 [data-theme="dark"] .project-card-back {
   background-color: var(--card-bg);
   color: var(--text);
   border-color: var(--border);
 }
 
-/* Flip Button Style - Preserved but not used with new overlay */
+/* Flip Button Style */
 .flip-button {
   position: absolute;
   top: 10px;
@@ -244,7 +243,7 @@
   overflow: hidden;
 }
 
-/* Add image gradient overlays - more subtle version */
+/* Add image gradient overlays */
 .project-image::before {
   content: '';
   position: absolute;
@@ -301,7 +300,7 @@
   transform: scale(1.05);
 }
 
-/* Category badge with more subtle style */
+/* Category badge */
 .project-category {
   position: absolute;
   top: 1rem;
@@ -375,7 +374,7 @@
   -webkit-line-clamp: 3;
 }
 
-/* Tech tags with subtle animation */
+/* Tech tags */
 .project-tech {
   display: flex;
   flex-wrap: wrap;
@@ -399,7 +398,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-/* NEW PREMIUM FEATURE: Links overlay */
+/* Links overlay */
 .project-links-overlay {
   position: absolute;
   bottom: 0;
@@ -420,7 +419,7 @@
   transform: translateY(0);
 }
 
-/* Action links - Existing with minor updates */
+/* Action links */
 .project-links, .back-links {
   display: flex;
   gap: 0.8rem;
@@ -464,7 +463,7 @@
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Back Card Design - Preserved with minor styling updates */
+/* Back Card Design */
 .back-title {
   font-size: 1.4rem;
   font-weight: 600;
@@ -506,7 +505,7 @@
   color: var(--primary-dark);
 }
 
-/* Category Filters - Preserved */
+/* Category Filters */
 .filters {
   display: flex;
   justify-content: center;
@@ -543,12 +542,12 @@
   box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.4);
 }
 
-/* Animation Classes - Preserved */
+/* Animation Classes */
 .animate-in {
   animation: fadeInUp 0.8s ease forwards;
 }
 
-/* More Projects - Preserved */
+/* More Projects */
 .more-projects {
   padding: 4rem 0;
   text-align: center;
@@ -632,7 +631,7 @@
   width: 100%;
 }
 
-/* Mobile indicators - Improved with subtle styling */
+/* Mobile indicators */
 .mobile-flip-indicator {
   position: absolute;
   bottom: 0;
@@ -668,7 +667,7 @@
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* Animations - Preserved */
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -709,7 +708,7 @@
   }
 }
 
-/* Responsive Design - Updated for premium layout */
+/* Responsive Design */
 @media (max-width: 1200px) {
   .projects-container {
     gap: 1.5rem;
@@ -855,7 +854,7 @@
   }
 }
 
-/* Icon-based navigation for minimalist design */
+/* Icon-based navigation */
 .project-icons {
   position: absolute;
   bottom: 1rem;
@@ -899,7 +898,6 @@
   color: var(--text);
 }
 
-/* Updated mobile indicators with full width */
 .mobile-flip-indicator {
   position: absolute;
   bottom: 0;
@@ -918,7 +916,7 @@
   display: none;
   font-weight: 500;
   letter-spacing: 0.01em;
-  border-radius: 0; /* Removed border radius */
+  border-radius: 0;
 }
 
 .mobile-back-indicator {
@@ -933,17 +931,17 @@
   font-size: 0.8rem;
   z-index: 10;
   display: none;
-  border-radius: 0; /* Removed border radius */
+  border-radius: 0;
 }
 
-/* Tablet specific - no blur */
+/* Tablet specific */
 @media (max-width: 992px) {
-  /* Show link overlay without blur */
+
   .project-links-overlay {
     transform: translateY(0);
     opacity: 1;
     background: var(--card-bg);
-    /* Removed backdrop-filter and blur */
+
   }
 
   /* For dark mode */
@@ -976,7 +974,6 @@
     font-size: 0.9rem;
   }
 
-  /* Convert back button to icon only */
   .back-link.back-to-front.icon-only {
     width: 2.2rem;
     height: 2.2rem;
@@ -1010,7 +1007,6 @@
 }
 
 /* Overlay Effect for Project Cards */
-
 .project-image::before {
   content: '';
   position: absolute;
@@ -1029,7 +1025,6 @@
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Premium diagonal accent overlay */
 .project-image::after {
   content: '';
   position: absolute;
@@ -1056,7 +1051,6 @@
   will-change: transform;
 }
 
-/* Hover states for premium effect */
 .project-card:hover .project-image::before {
   opacity: 0.9;
 }
@@ -1069,7 +1063,6 @@
   transform: scale(1.08);
 }
 
-/* Refined overlay with subtle color for hover state */
 .image-overlay {
   position: absolute;
   top: 0;
@@ -1120,7 +1113,6 @@
   );
 }
 
-/* Add fallback for browsers without CSS variables */
 :root {
   --primary-rgb: 79, 70, 229;
   --secondary-rgb: 236, 72, 153;

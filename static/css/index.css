@@ -495,11 +495,6 @@
 
 /* Skills Section */
 
-/*
-   COMPREHENSIVE SKILL BARS FIX
-   Add this to your index.css file
-*/
-
 /* Base styles for skill bars */
 .skill-bar {
     width: 100%;
@@ -520,13 +515,12 @@ html[data-theme="dark"] .skill-bar {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* The actual colored skill level bar - Updated with blue-pink gradient */
 .skill-level {
     display: block;
     height: 100%;
-    width: 0%; /* Start at 0% - will be animated by JS */
+    width: 0%;
     border-radius: 10px;
-    /* Blue to Pink Gradient using your color variables */
+
     background: linear-gradient(90deg, var(--primary), var(--primary-dark), var(--secondary));
     background-size: 200% 100%;
     position: relative;
@@ -534,7 +528,7 @@ html[data-theme="dark"] .skill-bar {
     animation: gradientShift 8s ease infinite;
 }
 
-/* Add a glossy effect to the skill level bar */
+
 .skill-level::before {
     content: '';
     position: absolute;
@@ -609,9 +603,6 @@ html[data-theme="dark"] .skill-bar {
     gap: 15px;
 }
 
-
-
-/* Improve the visual style of the skill navigation */
 .skills-nav {
     display: flex;
     justify-content: center;
@@ -716,7 +707,7 @@ html[data-theme="dark"] .soft-skills {
     background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
-/* Enhanced soft skills cloud */
+/* soft skills cloud */
 .soft-skills-cloud {
     display: flex;
     flex-wrap: wrap;
@@ -1052,10 +1043,6 @@ html[data-theme="dark"] .soft-skills {
     }
 }
 
-
-
-
-
 @media (max-width: 768px) {
 
     .hero-title {
@@ -1089,7 +1076,6 @@ html[data-theme="dark"] .soft-skills {
     border: none !important;
     background: transparent !important;
   }
-
 
 .skills-grid {
     grid-template-columns: repeat(2, 1fr);
