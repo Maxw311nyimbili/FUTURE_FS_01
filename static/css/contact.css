@@ -963,6 +963,11 @@ html, body {
   border-color: var(--gray-700);
 }
 
+[data-theme="dark"] .social-link:hover {
+  color: white;
+
+}
+
 [data-theme="dark"] .contact-info-inner::before,
 [data-theme="dark"] .contact-form-inner::before {
   opacity: 0.1;
