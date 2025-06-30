@@ -963,9 +963,8 @@ html, body {
   border-color: var(--gray-700);
 }
 
-.social-link:hover {
+[data-theme="dark"] .social-link:hover {
   color: white;
-
 }
 
 [data-theme="dark"] .contact-info-inner::before,
