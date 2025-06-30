@@ -963,7 +963,7 @@ html, body {
   border-color: var(--gray-700);
 }
 
-[data-theme="dark"] .social-link:hover {
+.social-link:hover {
   color: white;
 
 }
