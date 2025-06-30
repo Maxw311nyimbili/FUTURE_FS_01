@@ -797,6 +797,14 @@ html[data-theme="dark"] .soft-skills {
     font-weight: 500;
     color: var(--dark);
 }
+html[data-theme="dark"] ,project-focus span{
+background-color: rgba(255, 255, 255, 0.9);
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--dark);
+}
 
 .project-body {
     padding: 1.5rem;
