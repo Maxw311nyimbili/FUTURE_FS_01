@@ -22,8 +22,6 @@ OUTLOOK_PASSWORD = os.getenv("OUTLOOK_PASSWORD")
 # SENDING EMAIL TO YOURSELF (ADMIN)
 def send_email(username_placeholder, message_data):
     """
-    Send notification email to yourself with HTML formatting and logo
-
     Parameters:
     - username_placeholder: User's email (for backward compatibility)
     - message_data: A dict containing name, email, subject and message
