@@ -65,7 +65,7 @@ def download_file():
         return send_file(file_path, as_attachment=True)
     except FileNotFoundError:
         # Fallback to your original path
-        file_path = '/home/nyimbiliPortfolio/portfolio/static/file/Maxwell Nyimbili-CS.pdf'
+        file_path = '/home/nyimbiliPortfolio/portfolio/static/file/Maxwell Nyimbili CV.pdf'
         return send_file(file_path, as_attachment=True)
 
 if __name__ == "__main__":
